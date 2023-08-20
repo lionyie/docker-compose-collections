@@ -1,0 +1,29 @@
+services:
+  postgres:
+    container_name: postgres
+    image: ${PG_IMAGE}
+    environment:
+      - POSTGRES_USER=${PG_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${PG_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${PG_POSTGRES_DB} #optional (specify default database instead of $PG_POSTGRES_DB)
+    ports:
+      - "${PG_POSTGRES_PORT}:5432"
+    volumes:
+      - ./volumes/postgres/data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - pg-net
+
+  pgadmin:
+    container_name: pgadmin
+    image: ${PGADMIN_IMAGE}
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_MAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PW}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    restart: always
+    networks:
+      - pg-net
+networks:
+  pg-net:

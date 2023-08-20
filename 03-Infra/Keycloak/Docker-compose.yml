@@ -1,0 +1,73 @@
+version: '3'
+volumes:
+  postgres_data:
+      driver: local
+services:
+  postgres:
+    image: postgres:15.1
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    ports:
+      - 15432:5432
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    ports:
+      - 8000:80
+    volumes:
+      - ./docker/pgadmin4:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    hostname: pgadmin4
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    #restart: always
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.1.1
+    container_name: keycloak
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # Keycloak 管理コンソール
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      # データベース
+      KC_DB: postgres
+      KC_DB_PASSWORD: password
+      KC_DB_USERNAME: keycloak
+      KC_DB_URL_PORT: 5432
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak
+      #KC_DB_URL: 'jdbc:postgresql://postgres:5432/keycloak'
+#      KC_LOG_LEVEL: ALL
+      KC_LOG_LEVEL: ERROR,org.infinispan:DEBUG,org.jgroups:DEBUG
+      TZ: 'Asia/Tokyo' # タイムゾーン
+#      KC_HTTP_RELATIVE_PATH: '/auth' # 默认是"localhost:port/"，localhost:port/auth才能访问项目,
+      KC_HEALTH_ENABLED: 'true' # ヘルスチェック URL の有効化
+      KC_HTTP_ENABLED: 'true' # HTTP の待ち受け
+      KC_HOSTNAME_STRICT: 'false'
+      # see https://www.keycloak.org/server/hostname#_accessing_keycloak_in_production_mode_using_http
+      KC_HOSTNAME_STRICT_HTTPS: 'false'
+      # see https://www.keycloak.org/server/hostname#_backend_endpoints
+      KC_HOSTNAME_STRICT_BACKCHANNEL: 'true'
+      # see https://www.keycloak.org/server/reverseproxy
+      KC_PROXY: 'edge'
+      # see https://www.keycloak.org/server/features#_supported_features
+      KC_FEATURES: 'token-exchange'
+    command:
+      - "start"
+      - "--auto-build"
+    ports:
+      - 18080:8080
+    links:
+      - postgres
+    depends_on:
+      - postgres

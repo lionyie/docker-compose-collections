@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql-local:
+    image: mysql:8
+    # docker安全验证
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      # 变量说明: https://hub.docker.com/_/mysql/
+      MYSQL_DATABASE: db1 # for database creation automatically
+      # root
+      MYSQL_ROOT_PASSWORD: root_password
+      # 普通用户
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    ports:
+      - 43306:3306
+    volumes:
+      - ./volumes/mysql/data:/var/lib/mysql
