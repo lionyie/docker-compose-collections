@@ -11,3 +11,8 @@ services:
       - ./volumes/redis/data:/data
     environment:
       - TZ=Asia/Shanghai
+    networks:
+      - net-local
+networks:
+  net-local:
+    driver: bridge

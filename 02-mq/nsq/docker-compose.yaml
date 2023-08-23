@@ -6,6 +6,9 @@ services:
     ports:
       - "4160"
       - "4161"
+    networks:
+      - net-local
+
   nsqd:
     image: nsqio/nsq
     command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
@@ -14,6 +17,9 @@ services:
     ports:
       - "4150"
       - "4151"
+    networks:
+      - net-local
+
   nsqadmin:
     image: nsqio/nsq
     command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
@@ -21,3 +27,9 @@ services:
       - nsqlookupd
     ports:
       - "4171"
+    networks:
+      - net-local
+
+networks:
+  net-local:
+    driver: bridge

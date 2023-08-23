@@ -20,6 +20,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd0.log
     restart: on-failure
+    networks:
+      - net-local
+
   pd1:
     image: pingcap/pd:latest
     ports:
@@ -39,6 +42,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd1.log
     restart: on-failure
+    networks:
+      - net-local
+
   pd2:
     image: pingcap/pd:latest
     ports:
@@ -58,6 +64,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd2.log
     restart: on-failure
+    networks:
+      - net-local
+
   tikv0:
     image: pingcap/tikv:latest
     volumes:
@@ -76,6 +85,9 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - net-local
+
   tikv1:
     image: pingcap/tikv:latest
     volumes:
@@ -94,6 +106,9 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - net-local
+
   tikv2:
     image: pingcap/tikv:latest
     volumes:
@@ -112,6 +127,8 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - net-local
 
   tidb:
     image: pingcap/tidb:latest
@@ -132,6 +149,9 @@ services:
       - "tikv1"
       - "tikv2"
     restart: on-failure
+    networks:
+      - net-local
+
   tispark-master:
     image: pingcap/tispark:v2.1.1
     command:
@@ -149,6 +169,10 @@ services:
       - "tikv1"
       - "tikv2"
     restart: on-failure
+    networks:
+      - net-local
+
+
   tispark-slave0:
     image: pingcap/tispark:v2.1.1
     command:
@@ -163,6 +187,8 @@ services:
     depends_on:
       - tispark-master
     restart: on-failure
+    networks:
+      - net-local
 
   tidb-vision:
     image: pingcap/tidb-vision:latest
@@ -171,6 +197,8 @@ services:
     ports:
       - "8010:8010"
     restart: on-failure
+    networks:
+      - net-local
 
   # monitors
   pushgateway:
@@ -194,6 +222,9 @@ services:
       - ./config/tidb.rules.yml:/etc/prometheus/tidb.rules.yml:ro
       - ./data:/data
     restart: on-failure
+    networks:
+      - net-local
+      -
   grafana:
     image: grafana/grafana:6.0.1
     user: "0"
@@ -208,3 +239,9 @@ services:
     ports:
       - "3000:3000"
     restart: on-failure
+    networks:
+      - net-local
+
+networks:
+  net-local:
+    driver: bridge

@@ -13,7 +13,7 @@ services:
     - '9200:9200'
     - '9300:9300'
     networks:
-      - elk
+      - net-local
 
   Logstash:
     image: logstash:7.16.2
@@ -29,7 +29,7 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"    
     networks:
-      - elk
+      - net-local
 
   Kibana:
     image: kibana:7.16.2
@@ -44,6 +44,7 @@ services:
     depends_on:
       - Elasticsearch  
     networks:
-      - elk
+      - net-local
 networks:
-  elk:
+  net-local:
+    driver: bridge

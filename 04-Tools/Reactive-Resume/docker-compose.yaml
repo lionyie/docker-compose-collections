@@ -11,6 +11,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - net-local
+
   server:
     image: amruthpillai/reactive-resume:server-latest
     build:
@@ -51,7 +54,8 @@ services:
       - STORAGE_ACCESS_KEY=
       - STORAGE_SECRET_KEY=
       - PDF_DELETION_TIME=
-
+    networks:
+      - net-local
   client:
     image: amruthpillai/reactive-resume:client-latest
     build:
@@ -68,6 +72,10 @@ services:
       - PUBLIC_URL=http://localhost:3000
       - PUBLIC_SERVER_URL=http://localhost:3100
       - PUBLIC_GOOGLE_CLIENT_ID=
-
+    networks:
+      - net-local
 volumes:
   pgdata:
+networks:
+  net-local:
+    driver: bridge

@@ -12,7 +12,7 @@ services:
       - ./volumes/postgres/data:/var/lib/postgresql/data
     restart: always
     networks:
-      - pg-net
+      - net-local
 
   pgadmin:
     container_name: pgadmin
@@ -24,6 +24,7 @@ services:
       - "${PGADMIN_PORT}:80"
     restart: always
     networks:
-      - pg-net
+      - net-local
 networks:
-  pg-net:
+  net-local:
+    driver: bridge

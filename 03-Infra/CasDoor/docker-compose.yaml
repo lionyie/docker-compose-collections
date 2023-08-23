@@ -14,7 +14,7 @@ services:
     volumes:
       - ./volumes/conf:/conf/
     networks:
-      casdoor:
+      - net-local
   db:
     restart: always
     image: mysql:8
@@ -27,6 +27,7 @@ services:
     volumes:
       - ./volumes/data/mysql/:/var/lib/mysql
     networks:
-      casdoor:
+      - net-local
 networks:
-  casdoor:
+  net-local:
+    driver: bridge

@@ -18,8 +18,7 @@ services:
       - VIRTUAL_PORT=3000
       - VIRTUAL_HOST=${GITEA_HOSTNAME}
     networks:
-      - backend
-      - frontend
+      - net-local
   db:
     container_name: gitea-db
     restart: always
@@ -35,10 +34,10 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
-      - backend
+      - net-local
     ports:
       - "13306:3306"
 
 networks:
-  frontend:
-  backend:
+  net-local:
+    driver: bridge

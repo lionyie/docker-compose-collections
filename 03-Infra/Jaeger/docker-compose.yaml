@@ -12,8 +12,8 @@ services:
       - 14250:14250 # jaeger-collector 接收 model.proto
       - 9411:9411 # jaeger-collector 兼容Zipkin的HTTP端口
     networks:
-      - jaeger
+      - net-local
 
 networks:
-  jaeger:
+  net-local:
     driver: bridge

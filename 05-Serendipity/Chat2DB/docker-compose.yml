@@ -5,3 +5,10 @@ services:
     container_name: chat2db-latest
     ports:
       - "10824:10824"
+    volumes:
+      - ./volumes/chat2db:/root/.chat2db
+    networks:
+      - net-local
+networks:
+  net-local:
+    driver: bridge

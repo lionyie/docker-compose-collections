@@ -18,6 +18,8 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
+    networks:
+      - net-local
 
   redis9002:
     image: redis:6
@@ -36,6 +38,8 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
+    networks:
+      - net-local
 
   redis9003:
     image: redis:6
@@ -54,6 +58,8 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
+    networks:
+      - net-local
 
   redis9004:
     image: redis:6
@@ -72,6 +78,8 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
+    networks:
+      - net-local
 
   redis9005:
     image: redis:6
@@ -90,7 +98,9 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
-
+    networks:
+      - net-local
+      -
   redis9006:
     image: redis:6
     container_name: redis9006
@@ -108,7 +118,8 @@ services:
       options:
         max-size: '100m'
         max-file: '10'
-
+    networks:
+      - net-local
 networks:
-  app_net:
-    external: true
+  net-local:
+    driver: bridge

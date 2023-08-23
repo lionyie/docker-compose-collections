@@ -17,3 +17,8 @@ services:
       - 43306:3306
     volumes:
       - ./volumes/mysql/data:/var/lib/mysql
+    networks:
+      - net-local
+networks:
+  net-local:
+    driver: bridge

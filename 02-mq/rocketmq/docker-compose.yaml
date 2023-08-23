@@ -9,6 +9,8 @@ services:
     volumes:
       - ./volumes/rocketmq/namesrv/logs:/home/rocketmq/logs
     command: sh mqnamesrv
+    networks:
+      - net-local
 
   #Service for broker
   broker:
@@ -27,6 +29,8 @@ services:
       - ./volumes/rocketmq/broker/store:/home/rocketmq/store
       - ./volumes/rocketmq/broker/conf/broker.conf:/opt/rocketmq-5.1.0/conf/broker.conf
     command: sh mqbroker -c /opt/rocketmq-5.1.0/conf/broker.conf
+    networks:
+      - net-local
 
   #Service for another broker -- broker1
   broker1:
@@ -45,3 +49,9 @@ services:
       - ./volumes/rocketmq_broker1/broker/store:/home/rocketmq/store
       - ./volumes/rocketmq_broker1/broker/conf/broker.conf:/opt/rocketmq-5.1.0/conf/broker.conf
     command: sh mqbroker -c /opt/rocketmq-5.1.0/conf/broker.conf
+    networks:
+      - net-local
+
+networks:
+  net-local:
+    driver: bridge

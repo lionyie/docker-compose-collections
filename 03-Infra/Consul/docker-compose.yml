@@ -10,7 +10,7 @@ services:
      - ./volumes/consul/server1.json:/consul/config/server1.json:ro
      - ./volumes/consul/certs/:/consul/config/certs/:ro
     networks:
-      - consul
+      - net-local
     ports:
       - "8500:8500"
       - "8600:8600/tcp"
@@ -25,7 +25,7 @@ services:
      - ./volumes/consul/server2.json:/consul/config/server2.json:ro
      - ./volumes/consul/certs/:/consul/config/certs/:ro
     networks:
-      - consul
+      - net-local
     command: "agent -bootstrap-expect=3"
 
   consul-server3:
@@ -36,7 +36,7 @@ services:
      - ./volumes/consul/server3.json:/consul/config/server3.json:ro
      - ./volumes/consul/certs/:/consul/config/certs/:ro
     networks:
-      - consul
+      - net-local
     command: "agent -bootstrap-expect=3"
 
   consul-client:
@@ -47,9 +47,9 @@ services:
      - ./volumes/consul/client.json:/consul/config/client.json:ro
      - ./volumes/consul/certs/:/consul/config/certs/:ro
     networks:
-      - consul
+      - net-local
     command: "agent"
 
 networks:
-  consul:
+  net-local:
     driver: bridge

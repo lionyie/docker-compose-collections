@@ -13,6 +13,9 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 15432:5432
+    networks:
+      - net-local
+
   pgadmin4:
     image: dpage/pgadmin4:latest
     container_name: pgadmin4
@@ -29,6 +32,9 @@ services:
     depends_on:
       - postgres
     #restart: always
+    networks:
+      - net-local
+
   keycloak:
     image: quay.io/keycloak/keycloak:21.1.1
     container_name: keycloak
@@ -71,3 +77,9 @@ services:
       - postgres
     depends_on:
       - postgres
+    networks:
+      - net-local
+
+networks:
+  net-local:
+    driver: bridge
