@@ -1,0 +1,23 @@
+version: '3'
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    environment:
+      CLICKHOUSE_USER: user
+      CLICKHOUSE_PASSWORD: password
+    expose:
+      - 9000
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - ./volumes/clickhouse/data/database:/var/lib/clickhouse
+      - ./volumes/clickhouse/data/logs:/var/log
+      - ./config/users.xml:/etc/clickhouse-server/users.xml
+      - ./config/conf.d:/etc/clickhouse-server/conf.d
+    networks:
+      - net-local
+
+networks:
+  net-local:
+    driver: bridge

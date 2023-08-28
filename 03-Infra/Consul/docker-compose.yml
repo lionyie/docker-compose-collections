@@ -1,7 +1,6 @@
 version: '3.7'
 
 services:
-  
   consul-server1:
     image: hashicorp/consul:1.15.3
     container_name: consul-server1
