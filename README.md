@@ -1,4 +1,4 @@
-# My docker-compose file collections
+# Some docker-compose file collections
 
 **Commonly used in the development environment to build and use.**
 
