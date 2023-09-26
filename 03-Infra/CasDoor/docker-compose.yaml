@@ -12,7 +12,7 @@ services:
       driverName: mysql
       dataSourceName: "root:123456@tcp(db:3306)/"
     volumes:
-      - ./volumes/conf:/conf/
+      - ./conf:/conf/
     networks:
       - net-local
   db:
@@ -25,7 +25,7 @@ services:
       MYSQL_DATABASE: casdoor
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - ./volumes/data/mysql/:/var/lib/mysql
+      - ./volumes/casbin/data/mysql/:/var/lib/mysql
     networks:
       - net-local
 networks:
