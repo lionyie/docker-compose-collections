@@ -44,6 +44,6 @@ Todo...
 
 + [metabase](https://github.com/metabase/metabase):开源数据库可视化,替代Power BI
 
-  [docker-compose搭建](https://www.metabase.com/docs/latest/installation-and-operation/running-metabase-on-docker#use-docker-secrets-to-hide-sensitive-parameters)
+  [docker-compose搭建metabase](https://www.metabase.com/docs/latest/installation-and-operation/running-metabase-on-docker#use-docker-secrets-to-hide-sensitive-parameters)
 
 +  Todo...
