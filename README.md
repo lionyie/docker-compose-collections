@@ -42,7 +42,7 @@ Todo...
 
 ## Other interesting docker-compose
 
-+ [metabase](https://github.com/metabase/metabase):开源数据库可视化,替代Power BI
++ [metabase](https://github.com/metabase/metabase):开源数据库可视化
 
   [docker-compose搭建metabase](https://www.metabase.com/docs/latest/installation-and-operation/running-metabase-on-docker#use-docker-secrets-to-hide-sensitive-parameters)
 
